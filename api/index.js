@@ -68,17 +68,17 @@ app.get("/quizzes", function(req, res) {
 });
 
 
-//get submission by id
+//get submissions by quiz id
 app.get("/quiz/:id", function(req, res) {
   var quiz_id = req.params.id 
 
-  db.collection("submission").find({quiz_id: quiz_id}).toArray(function(err, submission){
+  db.collection("submission").find({quiz_id: quiz_id}).toArray(function(err, submissions){
     if(err) {
       // handle error
       handleError(res, err.message, "submission not found");
     } else {
       // 200 ok 
-      handleResponse(res, 200, "submission found", submission);
+      handleResponse(res, 200, "submission found", {subs: submissions});
     }
   });
 });
@@ -88,7 +88,7 @@ app.post("/quiz/:id", function(req, res) {
   var quiz_id = req.params.id 
 
   var newSubmission = {
-    quiz_id: req.body.quiz_id, 
+    quiz_id: quiz_id, 
     studentName: req.body.studentName,
     answers: req.body.answers
 
