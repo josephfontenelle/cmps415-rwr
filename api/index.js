@@ -89,7 +89,7 @@ app.post("/quiz/:id", function(req, res) {
 
   var newSubmission = {
     quiz_id: quiz_id, 
-    name: req.body.name,
+    studentName: req.body.studentName,
     answers: req.body.answers
 
   }
