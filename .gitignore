@@ -1,6 +1,7 @@
-.vscode
+./.vscode
 
-Node_Modules
+./node_modules
+./web/node_modules
 
 # Logs
 logs
