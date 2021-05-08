@@ -50,7 +50,7 @@ const SummaryOne = () => {
        <div>
           <h1>Submission</h1>
           <p className="description">
-        All quizzes submmsiosn will be shown here as name of student and answers<br></br>
+        All quizzes submmsions will be shown here as name of student and answers<br></br>
       </p>
            {/* <li>{submission}</li> */}
            </div>
