@@ -3,17 +3,17 @@ import "./styles.css";
 import axios from "axios";
 
 const SubmitQuiz = ({match}) => {
-
+// hooks
     const [answer1, setAnswer1] = useState("");
     const [answer2, setAnswer2] = useState("");
     const [answer3, setAnswer3] = useState("");
     const [answer4, setAnswer4] = useState("");
     const [studentName, setStudentName] = useState(""); 
     
-  
+    const [quiz, setQuiz] = useState([]);    
 
   // axios get
-  const [quiz, setQuiz] = useState({});
+  
 
   // change to true when all the data is finally loaded into DOM
   const [quizIsLoaded, setQuizIsLoaded] = useState(false);
@@ -24,7 +24,7 @@ const SubmitQuiz = ({match}) => {
   useEffect(() => {
       getQuiz();
   }, [])
-
+//get
   const getQuiz = () => {
       axios.get(`http://localhost:8080/quiz/${match.params.id}`)
       .then((response) => {
@@ -49,7 +49,7 @@ const SubmitQuiz = ({match}) => {
       return <div>Error fetching quiz</div>
   }
 
-
+console.log(quiz);
   // axios post 
 
   function SubmitQuiz(e) {
@@ -58,9 +58,9 @@ const SubmitQuiz = ({match}) => {
       method: "post",
       url: `http://localhost:8080/quiz/${match.params.id}`,
       data: {
-        
+       
         studentName: studentName,
-        quiz_id: match.params.id,
+        quiz_id: "",
         answers:
           "A.)" +
           answer1 +
@@ -87,6 +87,7 @@ const SubmitQuiz = ({match}) => {
 
 
   return (
+      //submit form
     <div>
       <h1>Submit a Quiz</h1>
       <form action="/action_page.php">
@@ -103,22 +104,24 @@ const SubmitQuiz = ({match}) => {
         />
         <br />
         <br />
-
+  
+            {/* attempt to get questions to see them before answering */}
         
-        <div>
-            {
-                quiz.questions.map((question, i) => (
-                    <div key={i}>
-                        <p><b>Text:</b> {question.text}</p>
-                        <p><b>Type:</b> {question.type}</p>
-                        <p><b>Options:</b> {question.options}</p>
-                        <br></br>
-                        
-                    </div>
-                ))
-            }
-        </div>
-
+                       {/* <div>
+                                   <p>
+                                        Questions
+                                   </p>
+                                { quiz.length > 0 ? (
+                               quiz.questions.map((question,i) => {
+                                   <div key={i}>
+                                    Questions:{question.text}
+                                    Type:{question.type}
+                                    Options:{question.options}
+                                   </div>
+                               })) :(<p>Not yet</p>)}                                
+                           
+                       </div> */}
+{/* answer fields */}
         <label for="answer1">Answer 1:</label>
         &nbsp;&nbsp;
         <input
@@ -169,6 +172,7 @@ const SubmitQuiz = ({match}) => {
           
         </p>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {/* submit */}
         <button
           variant="primary"
           onClick={(e) => {

@@ -17,9 +17,9 @@ class App extends Component {
             <Switch>
              <Route path="/CreateQuiz" component={CreateQuiz} exact/>
              <Route path="/SubmitQuiz/:id" component={SubmitQuiz}/>
-             <Route path={"/", "/SummaryAll"} component={SummaryAll}/>
+             <Route path={ "/SummaryAll"} component={SummaryAll}/>
              <Route path="/SummaryOne/:id" component={SummaryOne}/>
-            <Route component={Error}/>
+            
            </Switch>
         </div> 
       </BrowserRouter>

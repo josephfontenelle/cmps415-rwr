@@ -1,8 +1,10 @@
 var express = require("express");
 var app = express();
 var db;
+var mongo = require('mongodb')
 
-const MongoClient = require('mongodb').MongoClient;
+
+const MongoClient = mongo.MongoClient;
 const uri = "mongodb+srv://Bulldogs2016:z281XnBVuzVGVNwI@cluster0.gfdls.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -21,8 +23,6 @@ const corsOptions = {
 // middleware 
 app.use(cors(corsOptions));
 app.use(express.json());
-
-
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
@@ -56,6 +56,7 @@ app.post("/new/", function(req, res) {
     });
   }
 );
+
 // get all quizzes 
 app.get("/quizzes", function(req, res) {
     db.collection("quiz").find({}).toArray(function(err, quizzes) {
@@ -69,7 +70,7 @@ app.get("/quizzes", function(req, res) {
 
 
 //get submissions by quiz id
-app.get("/quiz/:id", function(req, res) {
+app.get("/quiz/:id/submissions", function(req, res) {
   var quiz_id = req.params.id 
 
   db.collection("submission").find({quiz_id: quiz_id}).toArray(function(err, submissions){
@@ -78,7 +79,24 @@ app.get("/quiz/:id", function(req, res) {
       handleError(res, err.message, "submission not found");
     } else {
       // 200 ok 
-      handleResponse(res, 200, "submission found", {subs: submissions});
+      handleResponse(res, 200, "submission found", {submissions: submissions});
+    }
+  });
+});
+//get a quiz id
+app.get("/quiz/:id", function(req, res) {
+  var quiz_id = req.params.id 
+  if(quiz_id == "") {
+    handleError(res, err.message, "not found");
+     return 
+  }
+  db.collection("quiz").find({"_id": mongo.ObjectID(quiz_id) }).toArray(function(err, quiz){
+    if(err) {
+      // handle error
+      handleError(res, err.message, "questions not found");
+    } else {
+      // 200 ok 
+      handleResponse(res, 200, "found",  {quiz: quiz});
     }
   });
 });

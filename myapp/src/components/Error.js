@@ -4,8 +4,9 @@ import React from 'react';
  
 const Error = () => {
     return (
+      //  no homepage
        <div>
-          <p>Error: Page does not exist!</p>
+          <p>Look to NavBar to where you would like to go</p>
        </div>
     );
 }

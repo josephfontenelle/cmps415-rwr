@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./styles.css";
 import axios from "axios";
 
-const CreateQuiz = () => {
+const CreateQuiz = ({quiz: quiz}) => {
 
- 
+//  hooks
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [text, setText] = useState("");
@@ -13,7 +13,7 @@ const CreateQuiz = () => {
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
- 
+//  post
   function SubmitQuiz(e) {
     e.preventDefault();
     axios({
@@ -24,11 +24,13 @@ const CreateQuiz = () => {
         title: title,
         description: description,
       
-      questions:{
+      questions:[{
          text: text,
         type: type,
         options: "A.)"+option1+", "+ "B.)"+ option2 + ", "+"C.)"+option3 +", "+ "D.)"+option4 
-      } 
+      }
+      ,
+      ]
       
       },
       config: { headers: { "Content-Type": "application/json" } },
@@ -42,6 +44,7 @@ const CreateQuiz = () => {
       });
   }
   return (
+    // quiz form
     <div>
       <h1>Create a Quiz</h1>
       <p className="description">
@@ -164,6 +167,7 @@ const CreateQuiz = () => {
           <br />
         </p>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {/* submit */}
         <button
           variant="primary"
           onClick={(e) => {

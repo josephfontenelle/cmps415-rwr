@@ -49,6 +49,11 @@ const SummaryAll = () => {
        <div>
           <h1>Quizzes</h1>
            <div>
+           <p className="description">
+            {/* dispaly data */}
+        Click A quiz to take<br></br>
+        
+      </p>
 
                {
                    quizzes.length < 1 ? ('no quizzes found') : (
@@ -67,8 +72,10 @@ const SummaryAll = () => {
                                    </div>
                                ))
                            }
+
                        </div>
                    )
+                   
                }
            </div>
        </div>
